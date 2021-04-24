@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/bottom-tab-navigator
  */
 
-import { Ionicons, MaterialIcons, AntDesign } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons, AntDesign, Feather } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as React from 'react';
@@ -11,6 +11,7 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import HomeScreen from '../screens/HomeScreen';
+import MovieDetailsScreen from '../screens/MovieDetailsScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { BottomTabParamList, HomeScreenParamList, TabTwoParamList } from '../types';
@@ -50,7 +51,7 @@ export default function BottomTabNavigator() {
         name="Downloads"
         component={TabTwoNavigator}
         options={{
-          tabBarIcon: ({ color }) => <AntDesign name="download" size={24} color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="download" size={24} color={color} />,
         }}
       />
     </BottomTab.Navigator>
@@ -69,10 +70,15 @@ const HomeScreenStack = createStackNavigator<HomeScreenParamList>();
 
 function TabOneNavigator() {
   return (
-    <HomeScreenStack.Navigator>
+    <HomeScreenStack.Navigator initialRouteName="MovieDetails">
       <HomeScreenStack.Screen
         name="Home"
         component={HomeScreen}
+        options={{ headerShown: false }}
+      />
+      <HomeScreenStack.Screen
+        name="MovieDetails"
+        component={MovieDetailsScreen}
         options={{ headerShown: false }}
       />
     </HomeScreenStack.Navigator>

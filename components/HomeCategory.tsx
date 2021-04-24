@@ -1,7 +1,7 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { Image, StyleSheet } from "react-native";
 import { FlatList } from "react-native-gesture-handler";
-import { Text, View } from "../Themed";
+import { Text, View } from "./Themed";
 
 interface HomeCategoryProps {
   category: {
@@ -13,7 +13,7 @@ interface HomeCategoryProps {
 
 const HomeCategory = ({ category }: HomeCategoryProps) => {
   return (
-    <View>
+    <Fragment>
       <Text style={styles.title}>{category.title}</Text>
       <FlatList
         data={category.movies}
@@ -28,7 +28,7 @@ const HomeCategory = ({ category }: HomeCategoryProps) => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       />
-    </View>
+    </Fragment>
   );
 };
 

@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import Constants from "expo-constants";
 import React from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -14,9 +15,9 @@ export default function App() {
     return null;
   } else {
     return (
-      <SafeAreaProvider>
+      <SafeAreaProvider style={{ marginTop: Constants.statusBarHeight }}>
         <Navigation colorScheme={colorScheme} />
-        <StatusBar style="auto" />
+        <StatusBar style="dark" />
       </SafeAreaProvider>
     );
   }
