@@ -24,7 +24,7 @@ export default {
               duration: "1h 21m",
               plot:
                 "When Harvey's promotion requires him to recruit and hire a graduate of Harvard Law, he chooses Mike Ross. But Mike doesn't actualy have a law degree",
-              video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4",
+              video: "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
             },
             {
               id: "episode2",

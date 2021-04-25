@@ -13,24 +13,24 @@ import {
 import { FlatList, ScrollView } from "react-native-gesture-handler";
 import Episode from "../components/Episode";
 import { Picker } from "@react-native-picker/picker";
+import VideoPlayer from "../components/VideoPlayer";
+import { Episode as EpisodeType } from "../types";
 
 interface ListHeaderComponentProps {
   seasonsList: Array<string>;
   onSeasonsChange: (value: string, index: number) => void;
   season: string;
+  selectedEpisode: EpisodeType;
 }
 
 const ListHeaderComponent = ({
   season,
   seasonsList,
   onSeasonsChange,
+  selectedEpisode,
 }: ListHeaderComponentProps) => {
   return (
     <View style={{ flex: 1 }}>
-      <Image
-        style={styles.image}
-        source={{ uri: movieDetails.seasons.items[0].episodes.items[0].poster }}
-      />
       <Text style={styles.title}>{movieDetails.title}</Text>
       <View style={styles.detailsContainer}>
         <Text style={styles.match}>98% match</Text>
@@ -133,12 +133,24 @@ const MovieDetailsScreen = () => {
     index: 0,
   });
 
+  const [selectedEpisode, setSelectedEpisode] = useState(
+    movieDetails.seasons.items[selectedSeason.index].episodes.items[0]
+  );
+
   const handleSeasonsChange = (name: string, index: number) => {
     setSelectedSeason({ name, index });
   };
 
+  const handleEpisodeChange = (episode: EpisodeType) => {
+    setSelectedEpisode(episode);
+    // console.log(episode);
+  };
+
+  // console.log(selectedEpisode);
+
   return (
     <View style={styles.container}>
+      <VideoPlayer episode={selectedEpisode} />
       <FlatList
         data={movieDetails.seasons.items[selectedSeason.index].episodes.items}
         ListHeaderComponent={
@@ -146,11 +158,15 @@ const MovieDetailsScreen = () => {
             seasonsList={seasons}
             onSeasonsChange={handleSeasonsChange}
             season={selectedSeason.name}
+            selectedEpisode={selectedEpisode}
           />
         }
-        renderItem={({ item }) => <Episode episode={item} />}
+        renderItem={({ item }) => (
+          <Episode episode={item} onClick={handleEpisodeChange} />
+        )}
         showsVerticalScrollIndicator={false}
         horizontal={false}
+        style={{ marginBottom: "60%" }}
       />
     </View>
   );
@@ -251,5 +267,6 @@ const styles = StyleSheet.create({
   pickerContainer: {},
   picker: {
     color: "#fff",
+    width: 130,
   },
 });

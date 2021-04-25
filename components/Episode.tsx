@@ -1,20 +1,16 @@
-import { AntDesign, Feather } from "@expo/vector-icons";
+import { AntDesign, Feather, FontAwesome5 } from "@expo/vector-icons";
 import React from "react";
 import { Image, StyleSheet } from "react-native";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { Episode as EpisodeType } from "../types";
 import { Text, View } from "./Themed";
 
 interface EpisodeProps {
-  episode: {
-    id: string;
-    title: string;
-    poster: string;
-    duration: string;
-    plot: string;
-    video: string;
-  };
+  episode: EpisodeType;
+  onClick: (episode: EpisodeType) => void;
 }
 
-const Episode = ({ episode }: EpisodeProps) => {
+const Episode = ({ episode, onClick }: EpisodeProps) => {
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -25,7 +21,12 @@ const Episode = ({ episode }: EpisodeProps) => {
             <Text style={styles.greyText}>{episode.duration}</Text>
           </View>
         </View>
-        <Feather name="download" color="white" size={24} />
+        <TouchableOpacity
+          onPress={() => onClick(episode)}
+          style={styles.playButton}
+        >
+          <FontAwesome5 name="play" size={20} color="#fff" />
+        </TouchableOpacity>
       </View>
       <Text style={styles.greyText}>{episode.plot}</Text>
     </View>
@@ -63,5 +64,8 @@ const styles = StyleSheet.create({
   },
   marginLeft: {
     marginLeft: 10,
+  },
+  playButton: {
+    marginHorizontal: 10,
   },
 });
